@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Added option to allow expired **DST X3** validation, defaults to false
+
 ## 1.0.1+3
 
 * Added dependency to Dio
