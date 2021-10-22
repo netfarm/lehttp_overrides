@@ -12,13 +12,11 @@ To enable the fix you need to add this line at the beginning of your  project:
 import 'package:lehttp_overrides/lehttp_overrides.dart';
 
 void main() {
-  ...
-  if (Platform.isAndroid){
+  if (Platform.isAndroid) {
     HttpOverrides.global = LEHttpOverrides();
   }
-  ...
   runApp(const MyApp());
-  }
+}
 ```
 
 This works if you are using **ISRG Root X1** certificate path
