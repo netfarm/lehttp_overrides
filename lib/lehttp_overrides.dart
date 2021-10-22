@@ -47,23 +47,29 @@ String _hexconverter(Uint8List bytes) {
 }
 
 class LEHttpOverrides extends HttpOverrides {
-  static final LEHttpOverrides _instance = LEHttpOverrides._init();
+  static bool? _initRootCert;
+  final bool allowExpiredDSTX3;
 
-  factory LEHttpOverrides() => _instance;
-
-  LEHttpOverrides._init() {
+  static bool _addRootCert() {
     if (Platform.isAndroid) {
       final List<int> _cert = ascii.encode(kIsrgRootX1);
       SecurityContext.defaultContext.setTrustedCertificatesBytes(_cert);
     }
+    return true;
+  }
+
+  LEHttpOverrides({this.allowExpiredDSTX3 = false}) {
+    _initRootCert ??= _addRootCert();
   }
 
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     final HttpClient client = super.createHttpClient(context);
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) =>
-            _hexconverter(cert.sha1) == kSha1DstX3;
+    if (allowExpiredDSTX3) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) =>
+              _hexconverter(cert.sha1) == kSha1DstX3;
+    }
     return client;
   }
 }
