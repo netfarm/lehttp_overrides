@@ -38,7 +38,7 @@ mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d
 emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
 -----END CERTIFICATE-----''';
 
-String _hexconverter(Uint8List bytes) {
+String _hexConverter(Uint8List bytes) {
   final StringBuffer buffer = StringBuffer();
   for (int part in bytes) {
     buffer.write('${part < 16 ? '0' : ''}${part.toRadixString(16)}');
@@ -52,8 +52,8 @@ class LEHttpOverrides extends HttpOverrides {
 
   static bool _addRootCert() {
     if (Platform.isAndroid) {
-      final List<int> _cert = ascii.encode(kIsrgRootX1);
-      SecurityContext.defaultContext.setTrustedCertificatesBytes(_cert);
+      final List<int> cert = ascii.encode(kIsrgRootX1);
+      SecurityContext.defaultContext.setTrustedCertificatesBytes(cert);
     }
     return true;
   }
@@ -66,9 +66,7 @@ class LEHttpOverrides extends HttpOverrides {
   HttpClient createHttpClient(SecurityContext? context) {
     final HttpClient client = super.createHttpClient(context);
     if (allowExpiredDSTX3) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) =>
-              _hexconverter(cert.sha1) == kSha1DstX3;
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) => _hexConverter(cert.sha1) == kSha1DstX3;
     }
     return client;
   }
