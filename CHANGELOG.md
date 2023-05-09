@@ -1,3 +1,7 @@
+## 1.0.3
+
+* Updated dependencies & environment
+
 ## 1.0.2
 
 * Added option to allow expired **DST X3** validation, defaults to false

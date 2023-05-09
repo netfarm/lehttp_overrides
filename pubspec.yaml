@@ -2,7 +2,7 @@ name: lehttp_overrides
 description: A Flutter package to resolve Let's Encrypt SSL certificate problems with Android 7.1.1 and below
 repository: https://github.com/netfarm/lehttp_overrides
 homepage: https://www.netfarm.it/blog/blog-netfarm-10/post/let-s-encrypt-fix-flutter-dopo-30-settembre-2021-200
-version: 1.0.2
+version: 1.0.3
 
 environment:
   sdk: ">=2.19.6 <3.0.0"
